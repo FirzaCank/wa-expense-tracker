@@ -2,6 +2,7 @@
 credentials.json
 service_account.json
 *.json
+!railway.json
 !package.json
 __pycache__/
 *.pyc
