@@ -12,9 +12,13 @@ HEADERS = ["Tanggal", "Jumlah (IDR)", "Kategori", "Deskripsi", "Metode Pembayara
 
 
 def _get_worksheet() -> gspread.Worksheet:
-    """Authenticate and return the first worksheet of the configured spreadsheet."""
+    """Authenticate and return the first worksheet of the configured spreadsheet.
+    
+    Supports both local file path and base64-encoded JSON from environment.
+    """
+    service_account_path = Config.get_service_account_path()
     credentials = Credentials.from_service_account_file(
-        Config.GOOGLE_SERVICE_ACCOUNT_JSON, scopes=SCOPES
+        service_account_path, scopes=SCOPES
     )
     client = gspread.authorize(credentials)
     spreadsheet = client.open_by_key(Config.GOOGLE_SHEETS_ID)
